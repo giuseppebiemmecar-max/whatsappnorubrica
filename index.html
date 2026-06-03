@@ -437,6 +437,9 @@ document.addEventListener('click', e => {
   if (!document.getElementById('phone-row').contains(e.target)) closeDropdown();
 });
 
+// ── WA window handle ─────────────────────────────────────────────
+let waWindow = null;
+
 // ── Link builder ────────────────────────────────────────────────
 function getLink() {
   const code  = selectedCountry.code.replace('+','');
@@ -453,7 +456,17 @@ function validate() {
   return ok;
 }
 
-function openWA() { if (validate()) window.open(getLink(),'_blank'); }
+function openWA() {
+  if (!validate()) return;
+  const link = getLink();
+  // Se la finestra WA è già aperta, cambia solo l'URL senza riaprirla
+  if (waWindow && !waWindow.closed) {
+    waWindow.location.href = link;
+    waWindow.focus();
+  } else {
+    waWindow = window.open(link, 'whatsappami_window');
+  }
+}
 
 function copyLink() {
   if (!validate()) return;
