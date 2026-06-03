@@ -442,8 +442,8 @@ function getLink() {
   const code  = selectedCountry.code.replace('+','');
   const phone = document.getElementById('phone').value.replace(/\D/g,'');
   const msg   = document.getElementById('message').value.trim();
-  const base  = `https://wa.me/${code}${phone}`;
-  return msg ? base + `?text=${encodeURIComponent(msg)}` : base;
+  const base  = `https://web.whatsapp.com/send?phone=${code}${phone}`;
+  return msg ? base + `&text=${encodeURIComponent(msg)}` : base;
 }
 
 function validate() {
